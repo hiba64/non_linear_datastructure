@@ -1,0 +1,106 @@
+
+//Write a function that gives the number of nodes in the tree
+FUNCTION nodenumber(root : ^BT) : INTEGER
+VAR
+    num: INTEGER;
+BEGIN
+  IF (root=NULL) THEN
+     num:=0;
+  END_IF
+ 
+  ELSE
+        num := 1 + nodenumber(root^.LC) + nodenumber(root^.RC);
+  END_IF
+    RETURN num ;
+END
+//Write a function that gives the height of a tree
+FUNCTION heighttree(root : ^BT) : INTEGER
+VAR
+    h : INTEGER;
+BEGIN
+    IF (root = NULL) THEN
+        h := 0;
+    ELSE 
+        h =  Math.max (heighttree(root^.LC),heighttree(root^.RC))+1 ;
+    END_IF
+    RETURN h;
+END
+//Write a function that gives the number of leaves in the tree
+FUNCTION numleaves(root : ^BT) : INTEGER
+VAR
+    leaf : INTEGER;
+BEGIN        
+IF (root = NULL) THEN
+    leaf := 0;
+END_IF
+IF (root^.Lc = NULL AND root^.Rc =NULL) THEN
+    leaf := 1;
+ELSE
+    leaF := numleaves(root^.Lc)+numleaves(root^.Lc);
+END_IF
+    RETURN leaF;
+END
+
+//Write a function that gives the maximum value in the tree
+FUNCTION max(root : ^BT) : INTEGER
+VAR
+    m,result: INTEGER;
+BEGIN        
+IF (root = NULL) THEN
+        result:= 0;
+ELSE
+    m:= root^.VAL;
+END_IF
+     ml := maxvalue(root^.LC)
+     mr := maxvalue(root^.RC)
+
+
+    result := Math.max(ml,mr,m);
+    RETURN res;
+END
+//Write a function to test if the tree is a full binary tree
+FUNCTION fullbinarytree(root : ^BT) : BOOLEAN
+VAR
+    bool : BOOLEAN;
+BEGIN
+//empty tree
+IF (root = NULL) THEN
+        bool:=true;
+//leafe node
+ELSE_IF (root^.LC = NULL    AND root^.LC = NULL) THEN
+        state:=true;
+//left and right node not null
+ELSE_IF (fullbinarytree(root^.LC) and fullbinarytree(root^.RC)) THEN
+        bool:=true;
+ELSE
+        bool:=false;
+END_IF
+RETURN bool;
+END
+ALGORITHM Tree_basic_operations
+VAR
+
+     BT :  STRUCT
+           VAL : data; 
+           LC : ^BT; 
+           RC : ^BT; 
+      END_STRUCT
+
+    root^:BT;
+    
+    n_nodes,h_height,n_leaves,maxi:INTEGER;
+      test_binary:BOOLEAN;
+    
+BEGIN
+    n_nodes:= nodenumber(root : ^BT);
+    Write("the number of nodes in the tree ="+n_nodes);
+    h_height:=heighttree(root : ^BT);
+    Write("the height of a tree="+h_height);
+    n_leaves:=numleaves(root : ^BT);
+    Write("the number of leaves in the tree ="+ n_leaves);
+    maxi:=max(root : ^BT);
+    Write("the maximum value in the tree Tree_basic_operations ="+maxi);
+    test_binary:= fullbinarytree(root : ^BT));
+    Write("the tree is a full binary tree :"+ test_binary);
+
+END
